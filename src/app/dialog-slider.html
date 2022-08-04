@@ -1,0 +1,25 @@
+<!--<div class="slider" (swipeleft)="swipe($event)" (swiperight)="swipe($event)">-->
+<div #slider class="slider" (panleft)="pan($event)" (panright)="pan($event)" (panend)="pan($event)">
+  <div #slideContainer class="slide-container" [class.animate]="slider_animate" [style.transform]="'translateX(-' + selected*100 + '%)'">
+    <div class="slide" *ngFor="let slide of slides">
+      <img [src]="slide.img" alt="">
+      <h3>{{slide.title}}</h3>
+      <span>{{slide.desc}}</span>
+    </div>
+  </div>
+
+  <div class="slider-nav">
+    <button mat-button mat-dialog-close>SKIP</button>
+    <div class="spacer"></div>
+
+    <div class="slider-dots">
+      <div class="dot" *ngFor="let slide of slides; index as i" [ngClass]="{'active': i == selected}" (click)="selected = i"></div>
+    </div>
+
+    <div class="spacer"></div>
+    <button mat-button *ngIf="selected < slides.length - 1; else startBlock" (click)="selected = selected + 1">NEXT</button>
+    <ng-template #startBlock>
+      <button mat-button mat-dialog-close>LET'S START</button>
+    </ng-template>
+  </div>
+</div>
